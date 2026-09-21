@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Free AI Agent</string>
+    <string name="setup_title">Set up your agent</string>
+    <string name="setup_intro">Use your own free API key. Keys stay encrypted on this device and are sent only to the provider you choose.</string>
+    <string name="groq_key_label">Groq API key</string>
+    <string name="gemini_key_label">Gemini API key (optional fallback)</string>
+    <string name="show_key">Show API key</string>
+    <string name="hide_key">Hide API key</string>
+    <string name="fallback_label">Use Gemini if Groq is unavailable</string>
+    <string name="fallback_explanation">Fallback works only when a Gemini key is saved.</string>
+    <string name="system_prompt_label">Assistant instruction</string>
+    <string name="privacy_note">Never paste an API key into a chat message. Free providers may use prompts to improve their services, so do not send confidential information.</string>
+    <string name="get_groq_key">Get a Groq key</string>
+    <string name="get_gemini_key">Get a Gemini key</string>
+    <string name="save_and_continue">Save and continue</string>
+    <string name="save_settings">Save settings</string>
+    <string name="chat_title">Free AI Agent</string>
+    <string name="settings">Settings</string>
+    <string name="clear_chat">Clear chat</string>
+    <string name="empty_chat_title">Ready when you are</string>
+    <string name="empty_chat_body">Ask a question, draft something, or work through an idea. With Groq, your agent can calculate, count words and read the device date or time. It does not browse the live web.</string>
+    <string name="message_hint">Message your agent</string>
+    <string name="send_message">Send message</string>
+    <string name="assistant_thinking">Thinking…</string>
+    <string name="you_label">You</string>
+    <string name="assistant_label">Assistant</string>
+    <string name="back">Back</string>
+    <string name="retry">Retry</string>
+    <string name="clear_chat_title">Clear this chat?</string>
+    <string name="clear_chat_body">The encrypted conversation history will be removed from this device. Your API keys will be kept.</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="data_controls">Data controls</string>
+    <string name="erase_everything">Erase keys and chat history</string>
+    <string name="erase_title">Erase all app data?</string>
+    <string name="erase_body">This permanently removes both API keys, your settings and all chat history from this device.</string>
+    <string name="erase">Erase everything</string>
+    <string name="security_summary">API keys and chat history are encrypted with Android Keystore. Backups are disabled, cleartext traffic is blocked and the app contains no analytics.</string>
+    <string name="provider_groq">Groq</string>
+    <string name="provider_gemini">Gemini</string>
+</resources>
