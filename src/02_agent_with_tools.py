@@ -11,7 +11,7 @@ from langchain_community.tools import DuckDuckGoSearchRun
 
 load_dotenv()
 
-model = ChatGroq(model="llama-3.3-70b-versatile")
+model = ChatGroq(model="openai/gpt-oss-120b")
 
 # tool 1 — web search (prebuilt, free, no key)
 search = DuckDuckGoSearchRun()

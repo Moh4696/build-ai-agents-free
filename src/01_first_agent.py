@@ -10,7 +10,7 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 # the brain: a free groq model
-model = ChatGroq(model="llama-3.3-70b-versatile")
+model = ChatGroq(model="openai/gpt-oss-120b")
 
 # the agent: model + a system prompt telling it how to behave
 agent = create_agent(

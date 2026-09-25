@@ -18,7 +18,7 @@ load_dotenv()
 # --- fallback: try groq first, fall back to gemini (both free) ---
 def get_model():
     try:
-        model = ChatGroq(model="llama-3.3-70b-versatile")
+        model = ChatGroq(model="openai/gpt-oss-120b")
         model.invoke("ping")  # quick test that it actually responds
         print("using groq")
         return model
