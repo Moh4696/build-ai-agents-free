@@ -25,9 +25,12 @@ everything here is free, forever:
   adoption, with **34.5M downloads a month** (per firecrawl's 2026 framework
   report). → https://github.com/langchain-ai/langchain
 - **groq (or google's gemini free tier) — the brain.** groq runs open models like
-  llama 3.3 70b at **~300 tokens/sec** and hands out **~14,400 requests a day** with
-  no card. gemini gives you **1,500 requests/day** and a **million-token context
-  window** if you'd rather. → https://console.groq.com · https://aistudio.google.com
+  gpt-oss-120b at **~500 tokens/sec** and hands out generous free-tier limits with
+  no card. (heads up: groq moved its llama 3.3 70b and llama 3.1 8b models behind
+  an enterprise-only tier, so they'll 404 on a free key — gpt-oss-120b is the
+  current free pick.) gemini gives you **1,500 requests/day** and a
+  **million-token context window** if you'd rather.
+  → https://console.groq.com · https://aistudio.google.com
 - **your own machine — that's it.** python and a text editor.
 
 > **one honest catch up front:** "free" tiers change monthly and most of them train
@@ -153,7 +156,7 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 # the brain: a free groq model
-model = ChatGroq(model="llama-3.3-70b-versatile")
+model = ChatGroq(model="openai/gpt-oss-120b")
 
 # the agent: model + a system prompt telling it how to behave
 agent = create_agent(
@@ -184,8 +187,10 @@ running on a free model, no card, entirely from your own machine.
 
 - `load_dotenv()` reads your groq key out of the `.env` file so the code can use it
   without the key ever being written into the code itself.
-- `ChatGroq(model="llama-3.3-70b-versatile")` picks the brain. this is a free llama
-  model served by groq, fast enough that replies feel instant.
+- `ChatGroq(model="openai/gpt-oss-120b")` picks the brain. this is a free model
+  served by groq, fast enough that replies feel instant. (groq's llama 3.3 70b
+  and llama 3.1 8b models now require an enterprise plan, so gpt-oss-120b is the
+  current free-tier option.)
 - `create_agent(...)` builds the agent. right now `tools=[]` is empty, so this is
   really just a smart chatbot. the `system_prompt` is the standing instruction it
   follows every time.
@@ -212,8 +217,13 @@ we'll add two: a web search it didn't write, and a function you did.
 first, one more free install (no key needed — duckduckgo search is free):
 
 ```bash
-python3 -m pip install -U duckduckgo-search langchain-community
+python3 -m pip install -U duckduckgo-search ddgs langchain-community
 ```
+
+> **note:** `langchain-community`'s search tool now imports the `ddgs` package
+> under the hood (it replaced the old `duckduckgo_search` internals). without it
+> you'll hit `ModuleNotFoundError: No module named 'ddgs'` the moment you run the
+> agent — the line above installs both so you don't hit that.
 
 now update `agent.py`:
 
@@ -228,7 +238,7 @@ from langchain_community.tools import DuckDuckGoSearchRun
 
 load_dotenv()
 
-model = ChatGroq(model="llama-3.3-70b-versatile")
+model = ChatGroq(model="openai/gpt-oss-120b")
 
 # tool 1 — web search (prebuilt, free, no key)
 search = DuckDuckGoSearchRun()
@@ -307,7 +317,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 load_dotenv()
 
-model = ChatGroq(model="llama-3.3-70b-versatile")
+model = ChatGroq(model="openai/gpt-oss-120b")
 
 # the checkpointer saves conversation state between calls
 agent = create_agent(
@@ -408,7 +418,7 @@ load_dotenv()
 def get_model():
     try:
         # first choice: groq (fastest)
-        model = ChatGroq(model="llama-3.3-70b-versatile")
+        model = ChatGroq(model="openai/gpt-oss-120b")
         model.invoke("ping")  # quick test that it actually responds
         print("using groq")
         return model

@@ -16,7 +16,7 @@ load_dotenv()
 def get_model():
     try:
         # first choice: groq (fastest)
-        model = ChatGroq(model="llama-3.3-70b-versatile")
+        model = ChatGroq(model="openai/gpt-oss-120b")
         model.invoke("ping")  # quick test that it actually responds
         print("using groq")
         return model

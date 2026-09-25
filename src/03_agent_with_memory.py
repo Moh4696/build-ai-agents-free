@@ -9,7 +9,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 load_dotenv()
 
-model = ChatGroq(model="llama-3.3-70b-versatile")
+model = ChatGroq(model="openai/gpt-oss-120b")
 
 # the checkpointer saves conversation state between calls
 agent = create_agent(

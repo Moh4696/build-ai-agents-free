@@ -3,4 +3,5 @@ langchain-groq
 langchain-google-genai
 langchain-community
 duckduckgo-search
+ddgs
 python-dotenv
