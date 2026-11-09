@@ -1,6 +1,27 @@
-langchain
-langchain-groq
-langchain-google-genai
-langchain-community
-duckduckgo-search
-python-dotenv
+# Free-tier LLM providers
+langchain>=0.1.0,<1.0.0
+langchain-groq>=0.0.1,<1.0.0
+langchain-google-genai>=0.0.1,<1.0.0
+langchain-community>=0.0.1,<1.0.0
+langchain-anthropic>=0.0.1,<1.0.0
+duckduckgo-search>=3.8.1,<4.0.0
+python-dotenv>=1.0.0,<2.0.0
+
+# LangGraph multi-agent orchestration
+langgraph>=0.0.1,<1.0.0
+langgraph-checkpoint-sqlite>=0.0.1,<1.0.0
+
+# FastAPI web server
+fastapi>=0.100.0,<1.0.0
+uvicorn[standard]>=0.20.0,<1.0.0
+python-multipart>=0.0.6,<1.0.0
+aiofiles>=23.0.0,<1.0.0
+requests>=2.31.0,<3.0.0
+
+# YouTube publishing (from studio)
+google-api-python-client>=2.90.0,<3.0.0
+google-auth-httplib2>=0.2.0,<1.0.0
+google-auth-oauthlib>=1.1.0,<2.0.0
+
+# Image / video rendering (from studio)
+Pillow>=10.0.0,<11.0.0

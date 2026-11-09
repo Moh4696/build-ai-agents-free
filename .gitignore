@@ -3,3 +3,14 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Runtime files
+checkpoints.db
+jobs/*/video/
+jobs/*/state.json
+yt_token.json
+credentials/
+
+# Frontend build
+frontend/node_modules/
+frontend/dist/
