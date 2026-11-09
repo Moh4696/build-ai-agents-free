@@ -1,0 +1,16 @@
+Third-party components bundled with Faceless Studio
+===================================================
+
+mp4-muxer 5.2.2, webm-muxer 5.1.4 (MIT) - https://github.com/Vanilagy
+fflate 0.8.2 (MIT) - https://github.com/101arrowz/fflate
+kokoro-js 1.2.1 (Apache-2.0) - https://github.com/hexgrad/kokoro
+@huggingface/transformers / onnxruntime-web (Apache-2.0) - https://github.com/huggingface/transformers.js
+Kokoro-82M voice model (Apache-2.0), downloaded at runtime - https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX
+@ffmpeg/ffmpeg 0.12.15 (MIT) - https://github.com/ffmpegwasm/ffmpeg.wasm
+@ffmpeg/core 0.12.10 (GPL-2.0-or-later; FFmpeg built with libx264 and other components)
+  Files: vendor/ffmpeg-core/ffmpeg-core.js, vendor/ffmpeg-core/ffmpeg-core.wasm
+  This component is a separate program, loaded only when the browser cannot create an MP4 by itself.
+  Complete corresponding source code: https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.10
+  and FFmpeg: https://ffmpeg.org/download.html  |  x264: https://code.videolan.org/videolan/x264
+  License text: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Fonts: Anton, Bebas Neue, Montserrat, Poppins, Playfair Display (SIL Open Font License 1.1) - see app/fonts/

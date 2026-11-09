@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!--
+      Toolchain and library versions are deliberately pinned and updated as a reviewed change.
+      Live "newer version available" results are mutable and must not break reproducible CI;
+      every source, API, security and correctness check still runs with warningsAsErrors.
+    -->
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
+    <issue id="GradleDependency" severity="ignore" />
+    <!-- AAPT requires adaptive-icon XML in a v26 resource directory. -->
+    <issue id="ObsoleteSdkInt">
+        <ignore path="src/main/res/mipmap-anydpi-v26" />
+    </issue>
+</lint>

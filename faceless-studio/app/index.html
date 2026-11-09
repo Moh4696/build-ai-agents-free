@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faceless Studio — script to video</title>
+  <meta name="description" content="Turn any script into a captioned faceless video in minutes. Runs in your browser.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237c3aed'/%3E%3Cpath d='M24 18l22 14-22 14z' fill='%23facc15'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo-mark" aria-hidden="true">▶</span> <span id="appName">Faceless Studio</span> <span id="tierBadge" class="badge"></span></div>
+    <div class="topbar-actions">
+      <span id="saveState" class="muted small" aria-live="polite"></span>
+      <button id="openSettings" class="btn ghost" type="button">Settings</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <main class="layout">
+    <section class="panel" aria-label="Video settings">
+      <nav class="tabs" role="tablist">
+        <button role="tab" class="tab active" data-tab="script">1. Script</button>
+        <button role="tab" class="tab" data-tab="look">2. Look</button>
+        <button role="tab" class="tab" data-tab="voice">3. Voice</button>
+        <button role="tab" class="tab" data-tab="music">4. Music</button>
+        <button role="tab" class="tab" data-tab="brand">5. Brand</button>
+      </nav>
+
+      <div class="tabpanel active" data-panel="script">
+        <label class="field">
+          <span>Template</span>
+          <select id="template"></select>
+        </label>
+        <label class="field">
+          <span>Your script <span class="muted small">(start a line with <code>#</code> for a title, <code>1.</code> <code>2.</code> for a list)</span></span>
+          <textarea id="script" rows="12" spellcheck="true" placeholder="# 3 Habits That Changed My Life&#10;1. Wake up early. The quiet hours are pure gold.&#10;2. Read ten pages a day, every single day.&#10;3. Walk without your phone!"></textarea>
+        </label>
+        <div class="row between small muted"><span id="wordCount">0 words</span><span id="estLength"></span></div>
+        <label class="check pro-feature" data-pro>
+          <input type="checkbox" id="batchMode"> <span>Batch mode: make many videos at once. Separate scripts with a line containing only <code>===</code>.</span>
+        </label>
+        <div class="row gap">
+          <button id="loadSample" class="btn ghost small" type="button">Load an example</button>
+          <label class="btn ghost small file-btn">Import .txt files<input id="importTxt" type="file" accept=".txt,text/plain" multiple hidden></label>
+        </div>
+      </div>
+
+      <div class="tabpanel" data-panel="look">
+        <div class="field">
+          <span>Video shape</span>
+          <div class="seg" id="aspect">
+            <button type="button" data-v="9:16">9:16 <small>TikTok / Reels / Shorts</small></button>
+            <button type="button" data-v="1:1">1:1 <small>Feed post</small></button>
+            <button type="button" data-v="16:9">16:9 <small>YouTube</small></button>
+          </div>
+        </div>
+        <div class="field">
+          <span>Caption style</span>
+          <div class="grid-cards" id="captionStyles"></div>
+        </div>
+        <div class="field">
+          <span>Background</span>
+          <div class="seg" id="bgType">
+            <button type="button" data-v="procedural">Animated</button>
+            <button type="button" data-v="media">My photos/videos</button>
+            <button type="button" data-v="pexels" data-pro>Stock photos</button>
+          </div>
+        </div>
+        <div data-show="bgType=procedural">
+          <label class="field"><span>Animation style</span><select id="bgStyle"></select></label>
+        </div>
+        <div data-show="bgType=media">
+          <label class="field"><span>Upload images or short video clips (used in order, one per scene)</span>
+            <input id="bgMedia" type="file" accept="image/*,video/mp4,video/webm,video/quicktime" multiple></label>
+          <div id="bgMediaList" class="chips"></div>
+        </div>
+        <div data-show="bgType=pexels">
+          <p class="small muted">Free stock photos from Pexels matched to each scene. Needs your free Pexels API key (Settings).</p>
+          <label class="field"><span>Search term (optional — leave blank to match each scene automatically)</span><input id="pexelsQuery" type="text" placeholder="e.g. city night"></label>
+        </div>
+        <label class="field"><span>Background darkness (keeps captions readable): <output id="dimOut"></output></span><input id="dim" type="range" min="0" max="0.7" step="0.05"></label>
+        <label class="check"><input id="progressBar" type="checkbox"> <span>Show progress bar at the top</span></label>
+      </div>
+
+      <div class="tabpanel" data-panel="voice">
+        <div class="radio-cards" id="voiceType">
+          <label><input type="radio" name="voiceType" value="kokoro"> <b>Free AI voice</b><span>Natural English voice made in your browser. Free forever. First use downloads ~90 MB.</span></label>
+          <label data-pro><input type="radio" name="voiceType" value="elevenlabs"> <b>ElevenLabs premium voice</b><span>Studio-quality voices in 29 languages. Uses your own ElevenLabs API key.</span></label>
+          <label><input type="radio" name="voiceType" value="upload"> <b>Upload my voiceover</b><span>Use a recording or audio file you already have (MP3, WAV, M4A).</span></label>
+          <label><input type="radio" name="voiceType" value="none"> <b>No voice</b><span>Captions and music only. Popular for quote and fact videos.</span></label>
+        </div>
+        <div data-show="voiceType=kokoro">
+          <label class="field"><span>Voice</span><select id="kokoroVoice"></select></label>
+          <label class="field"><span>Speed: <output id="speedOut"></output></span><input id="speed" type="range" min="0.7" max="1.4" step="0.05"></label>
+          <button id="testVoice" class="btn ghost small" type="button">▶ Hear this voice</button>
+        </div>
+        <div data-show="voiceType=elevenlabs">
+          <div class="row gap"><button id="loadElevenVoices" class="btn ghost small" type="button">Load my ElevenLabs voices</button></div>
+          <label class="field"><span>Voice</span><select id="elevenVoice"><option value="">— load your voices first —</option></select></label>
+        </div>
+        <div data-show="voiceType=upload">
+          <label class="field"><span>Voiceover file</span><input id="voiceFile" type="file" accept="audio/*"></label>
+          <p class="small muted" id="voiceFileInfo"></p>
+        </div>
+        <div data-show="voiceType=none">
+          <label class="field"><span>Caption speed (words per minute): <output id="wpmOut"></output></span><input id="wpm" type="range" min="100" max="240" step="10"></label>
+        </div>
+      </div>
+
+      <div class="tabpanel" data-panel="music">
+        <div class="radio-cards" id="musicType">
+          <label><input type="radio" name="musicType" value="procedural"> <b>Built-in music</b><span>Original background tracks generated for you. Royalty-free, no copyright strikes.</span></label>
+          <label><input type="radio" name="musicType" value="upload"> <b>Upload my music</b><span>Only use music you have the rights to.</span></label>
+          <label><input type="radio" name="musicType" value="none"> <b>No music</b></label>
+        </div>
+        <div data-show="musicType=procedural">
+          <label class="field"><span>Mood</span><select id="mood"></select></label>
+          <button id="testMusic" class="btn ghost small" type="button">▶ Hear 10 seconds</button>
+        </div>
+        <div data-show="musicType=upload">
+          <label class="field"><span>Music file</span><input id="musicFile" type="file" accept="audio/*"></label>
+          <p class="small muted" id="musicFileInfo"></p>
+        </div>
+        <label class="field" data-hide="musicType=none"><span>Music volume: <output id="volOut"></output></span><input id="volume" type="range" min="0" max="1" step="0.05"></label>
+        <p class="small muted">Music automatically gets quieter while the voice is speaking.</p>
+      </div>
+
+      <div class="tabpanel" data-panel="brand">
+        <div class="row gap wrap">
+          <label class="field grow"><span>Brand kit</span><select id="kitSelect"><option value="">(unsaved)</option></select></label>
+          <button id="saveKit" class="btn ghost small" type="button">Save as kit…</button>
+          <button id="deleteKit" class="btn ghost small" type="button">Delete kit</button>
+        </div>
+        <label class="field"><span>Logo (PNG with transparent background works best)</span><input id="logoFile" type="file" accept="image/*"></label>
+        <div class="row gap"><img id="logoPreview" alt="" class="logo-preview" hidden><button id="removeLogo" class="btn ghost small" type="button" hidden>Remove logo</button></div>
+        <div class="row gap wrap">
+          <label class="field color"><span>Main colour</span><input id="primary" type="color"></label>
+          <label class="field color"><span>Highlight colour</span><input id="accent" type="color"></label>
+          <label class="field color"><span>Text colour</span><input id="textColor" type="color"></label>
+        </div>
+        <label class="field"><span>Caption font</span><select id="font"></select></label>
+        <label class="field"><span>Handle or website (shown in the corner and at the end)</span><input id="handle" type="text" maxlength="40" placeholder="@yourbrand"></label>
+        <label class="field"><span>End-screen message</span><input id="cta" type="text" maxlength="60" placeholder="Follow for more"></label>
+        <label class="field"><span>Logo / handle position</span>
+          <select id="watermark"><option value="top-right">Top right</option><option value="top-left">Top left</option><option value="bottom-right">Bottom right</option><option value="bottom-left">Bottom left</option><option value="off">Hide</option></select></label>
+      </div>
+    </section>
+
+    <section class="stage" aria-label="Preview and export">
+      <div class="preview-wrap">
+        <canvas id="preview" width="540" height="960" aria-label="Video preview"></canvas>
+      </div>
+      <div class="row gap center">
+        <button id="playPreview" class="btn ghost" type="button">▶ Play preview</button>
+        <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Preview position" class="grow">
+        <span id="previewTime" class="small muted mono">0:00</span>
+      </div>
+      <p class="small muted center">Preview shows timing without the voice. The final video uses your chosen voice and music.</p>
+
+      <div class="export">
+        <div class="row gap wrap">
+          <label class="field"><span>Quality</span><select id="quality"><option value="1080">1080p (best)</option><option value="720">720p (faster)</option></select></label>
+          <label class="check"><input id="autoMp4" type="checkbox"> <span>Always give me an MP4 ready for TikTok, Instagram and YouTube</span></label>
+        </div>
+        <button id="render" class="btn primary big" type="button">Make my video</button>
+        <button id="cancel" class="btn ghost" type="button" hidden>Cancel</button>
+        <div id="progress" class="progress" hidden><div class="bar"><span></span></div><p class="small" id="progressText"></p></div>
+        <ul id="warnings" class="warnings"></ul>
+      </div>
+
+      <div id="results" class="results"></div>
+    </section>
+  </main>
+
+  <dialog id="settings">
+    <form method="dialog" class="dialog-body">
+      <h2>Settings</h2>
+      <p class="small muted">Keys are stored only in this browser and are sent only to the service they belong to.</p>
+      <label class="field" data-pro><span>ElevenLabs API key (for premium voices)</span><input id="keyEleven" type="password" autocomplete="off" placeholder="sk_..."></label>
+      <label class="field" data-pro><span>Pexels API key (free, for stock photos) — <a href="https://www.pexels.com/api/" target="_blank" rel="noopener">get one</a></span><input id="keyPexels" type="password" autocomplete="off"></label>
+      <div id="licenseInfo" class="small"></div>
+      <div class="row gap between">
+        <button id="resetApp" class="btn ghost small danger" type="button">Reset everything</button>
+        <button class="btn primary" value="close">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="lock" class="lock" hidden>
+    <div class="lock-card">
+      <h1>Unlock Faceless Studio</h1>
+      <p>Enter the license key from your purchase email. You only need to do this once on each browser.</p>
+      <input id="licenseKey" type="text" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" autocomplete="off">
+      <button id="activate" class="btn primary big" type="button">Unlock</button>
+      <p id="lockMsg" class="small" role="alert"></p>
+      <p class="small muted">Don't have a key? <a id="buyLink" href="#" target="_blank" rel="noopener">Get Faceless Studio</a></p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

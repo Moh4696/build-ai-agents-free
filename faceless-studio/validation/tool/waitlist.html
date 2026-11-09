@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faceless Studio: videos for tradespeople, no filming</title>
+  <meta name="description" content="Short captioned videos for UK tradespeople, made from text. Done for you, or do it yourself.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d4ed8'/%3E%3Cpath d='M24 18l22 14-22 14z' fill='%23facc15'/%3E%3C/svg%3E">
+  <!--
+    BEFORE PUBLISHING, replace:
+      YOUR-FORM-LINK  -> your Google Form / Tally link (early access list)
+      YOUR-EMAIL      -> the email address enquiries should go to
+    Optional: put one of your sample videos next to this file named demo.mp4
+  -->
+  <style>
+    :root { --bg:#0b1020; --panel:#121a33; --line:#24305a; --text:#eef1fb; --muted:#a8b0cc; --blue:#3b82f6; --gold:#facc15; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+    .wrap { max-width:1000px; margin:0 auto; padding:0 16px; }
+    header { padding:18px 0; font-weight:800; display:flex; gap:8px; align-items:center; }
+    header i { display:inline-grid; place-items:center; width:30px; height:30px; border-radius:8px; background:var(--blue); color:var(--gold); font-style:normal; font-size:13px; }
+    .hero { display:grid; grid-template-columns:1.2fr .8fr; gap:36px; align-items:center; padding:24px 0 48px; }
+    h1 { font-size:clamp(32px,5vw,52px); line-height:1.06; margin:0 0 16px; letter-spacing:-.02em; }
+    h1 em { font-style:normal; color:var(--gold); }
+    .lead { color:var(--muted); font-size:19px; margin:0 0 8px; }
+    .phone { justify-self:center; width:min(260px,70vw); aspect-ratio:9/16; border-radius:26px; border:7px solid #1f2742; background:#000 center/cover; overflow:hidden; }
+    .phone video { width:100%; height:100%; object-fit:cover; display:block; }
+    section { padding:44px 0; border-top:1px solid var(--line); }
+    h2 { font-size:clamp(24px,3.4vw,34px); margin:0 0 8px; }
+    .sub { color:var(--muted); margin:0 0 26px; }
+    .options { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px; display:flex; flex-direction:column; }
+    .card h3 { margin:0 0 4px; font-size:21px; }
+    .price { font-size:34px; font-weight:800; margin:8px 0 0; }
+    .price small { font-size:15px; color:var(--muted); font-weight:500; }
+    .card ul { list-style:none; padding:0; margin:16px 0 20px; flex:1; }
+    .card li { padding:5px 0 5px 24px; position:relative; font-size:15px; }
+    .card li::before { content:"✓"; position:absolute; left:0; color:var(--gold); font-weight:800; }
+    .btn { display:block; text-align:center; text-decoration:none; font-weight:700; padding:14px 18px; border-radius:12px; background:var(--gold); color:#111; }
+    .btn.blue { background:var(--blue); color:#fff; }
+    .tag { display:inline-block; font-size:12px; font-weight:800; padding:2px 10px; border-radius:99px; background:#1e293b; color:var(--gold); border:1px solid var(--line); margin-bottom:8px; width:max-content; }
+    .note { color:var(--muted); font-size:14px; margin-top:10px; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .steps div { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; }
+    .steps b { display:block; margin-bottom:4px; }
+    .steps p { margin:0; color:var(--muted); font-size:15px; }
+    details { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin-bottom:10px; }
+    summary { font-weight:700; cursor:pointer; }
+    details p { color:var(--muted); margin:8px 0 0; }
+    footer { padding:30px 0; color:var(--muted); font-size:14px; border-top:1px solid var(--line); }
+    a { color:var(--gold); }
+    @media (max-width:760px) { .hero, .options, .steps { grid-template-columns:1fr; } .phone { order:-1; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header><i>▶</i> Faceless Studio</header>
+
+    <div class="hero">
+      <div>
+        <h1>Videos that show customers <em>you know your trade</em>. No filming.</h1>
+        <p class="lead">Short, captioned videos with tips your customers actually look for, made from a few lines of text in your logo and colours. Built for UK roofers, plumbers, electricians and builders.</p>
+        <p class="note">Every video on our page was made this way, with no camera and no editing.</p>
+      </div>
+      <div class="phone"><video src="demo.mp4" autoplay muted loop playsinline aria-label="Example video"></video></div>
+    </div>
+
+    <section>
+      <h2>Two ways to get your videos</h2>
+      <p class="sub">Pick whichever suits you. We're opening a small number of places first.</p>
+      <div class="options">
+        <div class="card">
+          <span class="tag">DONE FOR YOU</span>
+          <h3>We make them for you</h3>
+          <div class="price">From £249 <small>/ month</small></div>
+          <ul>
+            <li>8 videos a month, scripts written for your trade</li>
+            <li>Your logo, colours and contact details</li>
+            <li>Voiceover, captions and music</li>
+            <li>1 round of changes, cancel anytime</li>
+            <li>3 free videos first, so you can see how they do</li>
+          </ul>
+          <a class="btn" href="mailto:YOUR-EMAIL?subject=Free%203%20videos%20for%20my%20business">Get 3 free videos</a>
+        </div>
+        <div class="card">
+          <span class="tag">DO IT YOURSELF · EARLY ACCESS</span>
+          <h3>Make them yourself</h3>
+          <div class="price">£39 <small>one-time, early-bird</small></div>
+          <ul>
+            <li>Type a script, get a finished video in minutes</li>
+            <li>30 ready-made scripts for trades included</li>
+            <li>Free natural AI voice, captions and music</li>
+            <li>Save your brand and reuse it on every video</li>
+            <li>No subscription. Runs in your web browser</li>
+          </ul>
+          <a class="btn blue" href="YOUR-FORM-LINK">Join the early-access list</a>
+          <p class="note">Not on sale yet. Join the list and we'll email you when it opens. No payment taken now.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How it works</h2>
+      <div class="steps">
+        <div><b>1. Pick a topic</b><p>Seasonal tips, common questions, signs something needs fixing.</p></div>
+        <div><b>2. We turn it into a video</b><p>Voice, captions, animated background and music, in your brand.</p></div>
+        <div><b>3. Post it</b><p>Ready for TikTok, Instagram, Facebook and YouTube Shorts.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Questions</h2>
+      <details><summary>Is this AI?</summary><p>Yes. AI creates the voice and puts the video together, and every script is written and checked for your trade. Some platforms ask you to label AI content, so follow their rules when you post.</p></details>
+      <details><summary>Will it get me more jobs?</summary><p>We can't promise that, and nobody honestly can. Helpful videos can show people you know your stuff before they call. That's why the first 3 are free.</p></details>
+      <details><summary>Do I need to be good with tech?</summary><p>No. With "done for you", we send finished videos ready to post. The do-it-yourself tool is type, click and download.</p></details>
+    </section>
+  </div>
+  <footer><div class="wrap">Faceless Studio · Questions: <a href="mailto:YOUR-EMAIL">YOUR-EMAIL</a></div></footer>
+</body>
+</html>

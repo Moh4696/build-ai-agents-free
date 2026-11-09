@@ -1,5 +1,8 @@
 # How to Build AI Agents Completely Free in 2026
 
+> **Android without Termux:** use the ready-to-run [Google Colab notebook](colab/Build_AI_Agents_Free.ipynb), or build and install the [native Free AI Agent app](android-app/README.md).
+
+
 ### the ultimate beginner's guide
 
 **$0 · no credit card · no prior experience · open-source**

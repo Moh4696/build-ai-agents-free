@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faceless Studio — script to video, pay once</title>
+  <meta name="description" content="Turn any script into a captioned faceless video for TikTok, Reels and Shorts. Runs in your browser. One payment, no subscription.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237c3aed'/%3E%3Cpath d='M24 18l22 14-22 14z' fill='%23facc15'/%3E%3C/svg%3E">
+  <style>
+    :root { --bg:#0b0b12; --panel:#15151f; --line:#2a2a3d; --text:#ececf4; --muted:#a1a1b5; --accent:#8b5cf6; --gold:#facc15; color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+    a { color: inherit; }
+    .wrap { max-width:1080px; margin:0 auto; padding:0 20px; }
+    nav { display:flex; justify-content:space-between; align-items:center; padding:18px 0; }
+    .logo { font-weight:800; display:flex; gap:8px; align-items:center; }
+    .logo i { display:inline-grid; place-items:center; width:30px; height:30px; border-radius:8px; background:var(--accent); color:var(--gold); font-style:normal; font-size:13px; }
+    .btn { display:inline-block; text-decoration:none; font-weight:700; padding:13px 22px; border-radius:12px; background:var(--accent); color:#fff; border:1px solid var(--accent); }
+    .btn.ghost { background:transparent; border-color:var(--line); }
+    .btn.gold { background:var(--gold); color:#111; border-color:var(--gold); }
+    .hero { display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; padding:40px 0 60px; }
+    h1 { font-size:clamp(34px,5vw,56px); line-height:1.05; margin:0 0 18px; letter-spacing:-.02em; }
+    h1 em { font-style:normal; color:var(--gold); }
+    .lead { color:var(--muted); font-size:19px; margin:0 0 26px; }
+    .ctas { display:flex; gap:12px; flex-wrap:wrap; }
+    .small { font-size:14px; color:var(--muted); }
+    .phone { justify-self:center; width:min(300px,80vw); aspect-ratio:9/16; border-radius:28px; border:8px solid #222; background:#000; overflow:hidden; box-shadow:0 30px 80px rgba(124,58,237,.35); }
+    .phone video { width:100%; height:100%; object-fit:cover; display:block; }
+    section { padding:56px 0; border-top:1px solid var(--line); }
+    h2 { font-size:clamp(26px,3.5vw,38px); margin:0 0 10px; }
+    .sub { color:var(--muted); margin:0 0 30px; }
+    .steps, .features, .prices { display:grid; gap:16px; }
+    .steps { grid-template-columns:repeat(3,1fr); }
+    .features { grid-template-columns:repeat(3,1fr); }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:22px; }
+    .card b { display:block; margin-bottom:6px; font-size:18px; }
+    .card p { margin:0; color:var(--muted); font-size:15px; }
+    .num { display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%; background:var(--gold); color:#111; font-weight:800; margin-bottom:10px; }
+    .prices { grid-template-columns:repeat(2,minmax(0,380px)); justify-content:center; }
+    .price { font-size:44px; font-weight:800; margin:6px 0 2px; }
+    .price small { font-size:16px; color:var(--muted); font-weight:500; }
+    .price-card ul { list-style:none; padding:0; margin:18px 0 22px; }
+    .price-card li { padding:6px 0 6px 26px; position:relative; color:var(--text); font-size:15px; }
+    .price-card li::before { content:"✓"; position:absolute; left:0; color:var(--gold); font-weight:800; }
+    .price-card.best { border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
+    .tag { display:inline-block; background:var(--gold); color:#111; font-size:12px; font-weight:800; padding:2px 10px; border-radius:99px; }
+    .btn.block { display:block; text-align:center; }
+    table { width:100%; border-collapse:collapse; font-size:15px; }
+    th, td { text-align:left; padding:12px 10px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-weight:600; }
+    details { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin-bottom:10px; }
+    summary { font-weight:700; cursor:pointer; }
+    details p { color:var(--muted); margin:10px 0 0; }
+    footer { padding:40px 0; color:var(--muted); font-size:14px; border-top:1px solid var(--line); }
+    @media (max-width:820px) { .hero, .steps, .features { grid-template-columns:1fr; } .prices { grid-template-columns:1fr; } .phone { order:-1; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav><div class="logo"><i>▶</i> Faceless Studio</div><a class="btn ghost" href="#pricing">Pricing</a></nav>
+
+    <header class="hero">
+      <div>
+        <h1>Script in.<br><em>Scroll-stopping video</em> out.<br>Pay once.</h1>
+        <p class="lead">Paste a script and get a captioned, voiced, branded faceless video for TikTok, Reels and Shorts in minutes. No camera, no editing skills, no monthly subscription.</p>
+        <div class="ctas">
+          <a class="btn gold" href="#pricing">Get Faceless Studio</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+        <p class="small">Runs in Chrome or Edge on your computer. Your scripts never leave your browser.</p>
+      </div>
+      <div class="phone"><video src="demo.mp4" autoplay muted loop playsinline aria-label="Example video made with Faceless Studio"></video></div>
+    </header>
+
+    <section id="how">
+      <h2>Three steps. That's it.</h2>
+      <p class="sub">If you can paste text, you can make videos.</p>
+      <div class="steps">
+        <div class="card"><span class="num">1</span><b>Paste your script</b><p>Stories, top-10 lists, facts, quotes or product promos. Batch mode turns 30 scripts into 30 videos.</p></div>
+        <div class="card"><span class="num">2</span><b>Pick your style</b><p>Caption styles, a natural AI voice, animated backgrounds or your own photos, music, and your logo and colours.</p></div>
+        <div class="card"><span class="num">3</span><b>Download and post</b><p>An MP4 ready for TikTok, Instagram and YouTube, plus a subtitle file.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Everything you need for faceless content</h2>
+      <p class="sub">Built for creators, side-hustlers and small businesses.</p>
+      <div class="features">
+        <div class="card"><b>Animated captions</b><p>6 styles in Basic, 12 in Pro: bold pop, karaoke highlight, one-word, neon, typewriter and more.</p></div>
+        <div class="card"><b>Free natural AI voice</b><p>12 English voices that run on your own computer, with no per-video cost. Or upload your own voiceover.</p></div>
+        <div class="card"><b>Royalty-free music</b><p>Original background tracks in 5 moods, created for each video. They automatically get quieter under the voice.</p></div>
+        <div class="card"><b>Your brand on every video</b><p>Logo, colours, fonts, handle and end screen. Save brand kits for each client or channel.</p></div>
+        <div class="card"><b>Every shape</b><p>9:16 for TikTok, Reels and Shorts, 1:1 for feed posts, 16:9 for YouTube. Up to 1080p.</p></div>
+        <div class="card"><b>Private and offline-friendly</b><p>Everything happens in your browser. After setup, the built-in options even work without internet.</p></div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2>One payment. Yours to keep.</h2>
+      <p class="sub">No subscription, and no credits that run out. Make as many videos as you like.</p>
+      <div class="prices">
+        <div class="card price-card">
+          <b>Basic</b>
+          <div class="price">$49 <small>one time</small></div>
+          <ul>
+            <li>Unlimited videos</li>
+            <li>3 templates: story, top list, facts</li>
+            <li>6 caption styles</li>
+            <li>12 free AI voices + upload your own</li>
+            <li>Animated backgrounds or your photos/videos</li>
+            <li>Built-in royalty-free music</li>
+            <li>Logo, colours and brand kits</li>
+            <li>MP4 + subtitle export, up to 1080p</li>
+          </ul>
+          <a class="btn ghost block" href="YOUR-CHECKOUT-LINK-BASIC">Buy Basic</a>
+        </div>
+        <div class="card price-card best">
+          <span class="tag">MOST POPULAR</span>
+          <b>Pro</b>
+          <div class="price">$99 <small>one time</small></div>
+          <ul>
+            <li>Everything in Basic</li>
+            <li>All 5 templates (+ quote, product promo)</li>
+            <li>All 12 caption styles</li>
+            <li>Batch mode: dozens of videos in one go</li>
+            <li>Premium ElevenLabs voices, 29 languages*</li>
+            <li>Automatic stock photos for each scene*</li>
+          </ul>
+          <a class="btn gold block" href="YOUR-CHECKOUT-LINK-PRO">Buy Pro</a>
+        </div>
+      </div>
+      <p class="small" style="text-align:center;margin-top:16px">*Uses your own ElevenLabs (paid) or Pexels (free) account, and you pay them directly for what you use. Everything else is included.</p>
+    </section>
+
+    <section>
+      <h2>Subscription tools vs Faceless Studio</h2>
+      <p class="sub">Many AI video tools charge every month and cap how many videos you can export. Compare before you buy.</p>
+      <table>
+        <tr><th></th><th>Typical subscription tool</th><th>Faceless Studio</th></tr>
+        <tr><td>Price</td><td>Monthly fee, every month</td><td>One payment</td></tr>
+        <tr><td>Video limits</td><td>Monthly minutes or credits</td><td>Unlimited</td></tr>
+        <tr><td>Where it runs</td><td>Their servers</td><td>Your browser (private)</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Questions</h2>
+      <details><summary>What do I need?</summary><p>A computer with the latest Chrome or Edge. Phones and tablets aren't supported for exporting yet. The free AI voice downloads about 90 MB the first time you use it.</p></details>
+      <details><summary>Can I use the videos commercially and for clients?</summary><p>Yes. The built-in music is generated for you and the captions and backgrounds are yours. If you upload music or images, make sure you have the rights to them.</p></details>
+      <details><summary>Does the AI voice speak other languages?</summary><p>The free voices are English. For other languages, use Pro with your own ElevenLabs account, or upload a voiceover. Captions work in any language.</p></details>
+      <details><summary>How many computers can I use?</summary><p>Your license works on up to 3 browsers.</p></details>
+      <details><summary>Refunds?</summary><p>EDIT THIS: write your refund policy here (for example, "14-day money-back guarantee, no questions asked").</p></details>
+    </section>
+  </div>
+  <footer><div class="wrap">© Faceless Studio · <a href="YOUR-APP-LINK">Open the app</a> · Contact: EDIT-YOUR-EMAIL</div></footer>
+</body>
+</html>
